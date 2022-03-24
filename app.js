@@ -1,8 +1,6 @@
 const request=require('request')
-
 const chalk=require('chalk')
 const geocode=require('./utility/geocode.js')
-
 const weathercode = require('./utility/weathercode.js')
 
 
@@ -14,13 +12,13 @@ if(!address)
 }
 else
 {
-    geocode(address,(error,data)=>
+    geocode(address,(error,{latitude,longitude,location}={})=>
 {
     if(error)
    console.log(error)
    else
    {
-    weathercode(data.latitude,data.longitude,(error,forecastdata)=>
+    weathercode(latitude,longitude,(error,{temperature,feels_like}={})=>
     {
         if(error)
         {
@@ -28,9 +26,9 @@ else
         }
         else
        {
-        console.log(chalk.red.bold(data.location))   
-       console.log(chalk.yellow("Temperature outside :  ")+ chalk.green(forecastdata.temperature))
-       console.log(chalk.yellow("Temperature feels like :  ")+ chalk.green(forecastdata.feels_like))
+        console.log(chalk.red.bold(location))   
+       console.log(chalk.yellow("Temperature outside :  ")+ chalk.green(temperature))
+       console.log(chalk.yellow("Temperature feels like :  ")+ chalk.green(feels_like))
        }
     })
    }
