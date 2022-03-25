@@ -5,13 +5,22 @@
 <head>
   <link rel="icon" href="../img/image_1.png">
 <link  rel="stylesheet" href="../css/styles.css">
-<script src="../JS/application.js"></script>
+
 </head>
 
 <body>
     <div class="main">
       
      {{>header}}
+     <p>Use this app to find weather</p>
+
+     <form>
+       <input placeholder="Location">
+       <button>Search</button>
+     </form>
+     <p id="message-1"></p>
+     <p id="message-2"></p>
+     <p></p>
      
     </div>
     
@@ -21,6 +30,7 @@
    
 
      {{>footer}}
+     <script src="../JS/application.js"></script>
 </body>
 
 </html>
