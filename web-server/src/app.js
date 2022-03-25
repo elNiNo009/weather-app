@@ -1,3 +1,5 @@
+const geocode=require('./utility/geocode.js')
+const weathercode=require('./utility/weathercode.js')
 const path=require('path')
 const express=require('express')
 const hbs=require('hbs')
@@ -50,12 +52,39 @@ app.get('/weather',(req,res)=>              //help page
         })
     }
     console.log(req.query.address)
-
-    res.send( {
-        forecast:"sunny",
-        location:'Dehradun'
-    }
-    )
+    const adrs=req.query.address
+    geocode(adrs,(error,{latitude,longitude,location}={})=>
+    {
+        if(error)
+        {
+            res.send({
+                error:error
+            })
+           // console.log(error)
+        }
+        else
+       {
+        weathercode(latitude,longitude,(error,{temperature,feels_like}={})=>
+        {
+            if(error)
+            {
+                res.send({
+                    error:error
+                })
+          // console.log(error)
+            }
+            else
+           {
+            res.send( {
+                Temperature:temperature,
+                Feels_Like:feels_like,
+                 location:location
+            }
+            )
+           }
+        })
+       }
+    })
 })
 
 
