@@ -5,6 +5,9 @@ const express=require('express')
 const hbs=require('hbs')
 
 const app=express()
+
+const port=process.env.PORT || 3000 
+
 const publicDirectoryPath = path.join(__dirname, '../public')
 const viewsdir=path.join(__dirname,'../template/views')
 const partialsdir=path.join(__dirname,'../template/partials')
@@ -108,6 +111,12 @@ app.get('*',(req,res)=>                 //error
 })
 
 
+/*
 app.listen(3000,()=>{
     console.log("server running")
+})
+*/
+
+app.listen(port,()=>{
+    console.log("server running at : " +port )
 })
